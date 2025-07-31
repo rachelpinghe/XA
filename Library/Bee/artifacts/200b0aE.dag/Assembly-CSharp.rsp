@@ -364,6 +364,7 @@
 "Assets/3D_Assets/Scripts/DeskGameController.cs"
 "Assets/Assets/Scripts/GameManager.cs"
 "Assets/Assets/Scripts/PlayerMovement.cs"
+"Assets/LampInteraction.cs"
 "Assets/LifeNumber.cs"
 "Assets/LightControl.cs"
 "Assets/Mario_Assets/Scripts/AnimatedSprite.cs"

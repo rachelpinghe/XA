@@ -3779,7 +3779,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638492638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
@@ -4105,6 +4105,7 @@ GameObject:
   - component: {fileID: 1776704415}
   - component: {fileID: 1776704414}
   - component: {fileID: 1776704417}
+  - component: {fileID: 1776704418}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4119,7 +4120,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776704413}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1776704415
 Camera:
   m_ObjectHideFlags: 0
@@ -4202,6 +4203,24 @@ MonoBehaviour:
   height: 6.5
   undergroundHeight: -9.5
   undergroundThreshold: 0
+--- !u!114 &1776704418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776704413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4758badf424c5db30df43e23b2af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dimmedColor: {r: 0, g: 0, b: 0, a: 1}
+  normalColor: {r: 0, g: 0.7555051, b: 1, a: 1}
+  transitionSpeed: 2
+  lampLightTag: LampLight
+  threeDSceneName: SampleScene
+  lampLight: {fileID: 0}
 --- !u!1 &1879311733
 GameObject:
   m_ObjectHideFlags: 0

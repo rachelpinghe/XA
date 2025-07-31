@@ -83,6 +83,7 @@
     <Compile Include="Assets/Mario_Assets/Scripts/AnimatedSprite.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Extensions.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/DeathAnimation.cs" />
+    <Compile Include="Assets/LampInteraction.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Player.cs" />
     <Compile Include="Assets/Assets/Scripts/GameManager.cs" />
     <Compile Include="Assets/Assets/Scripts/PlayerMovement.cs" />

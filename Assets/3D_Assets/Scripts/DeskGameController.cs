@@ -28,6 +28,7 @@ public class DeskGameController : MonoBehaviour
     public KeyCode playGameKey = KeyCode.F;
     public KeyCode exitGameKey = KeyCode.Escape;
     public KeyCode toggleModeKey = KeyCode.Tab;
+    public KeyCode zoomInKey = KeyCode.E;
     
     [Header("Game Controls")]
     // public KeyCode zoomInKey = KeyCode.E;
@@ -44,6 +45,8 @@ public class DeskGameController : MonoBehaviour
     private bool isZoomedIn = false;
     private float currentGameZoom = 1f;
     private string defaultInstructionText = "Press [F] to play game\nPress [Tab] to toggle mouse look";
+
+    private bool isEscaped = false;
     
     // Mouse look
     private float xRotation = 0f;
@@ -61,7 +64,7 @@ public class DeskGameController : MonoBehaviour
         // Debug: Add frame counter to see if Update is still running
         if (Time.frameCount % 120 == 0) // Log every 2 seconds
         {
-            Debug.Log($"DeskGameController Update running - Frame: {Time.frameCount}, Game Loaded: {isGameLoaded}");
+            // Debug.Log($"DeskGameController Update running - Frame: {Time.frameCount}, Game Loaded: {isGameLoaded}");
         }
         
         HandleInput();
@@ -98,13 +101,13 @@ public class DeskGameController : MonoBehaviour
         // Debug: Test if Input system is working at all
         if (isGameLoaded && Time.frameCount % 60 == 0)
         {
-            Debug.Log($"Input Status - anyKey: {Input.anyKey}, Tab: {Input.GetKey(KeyCode.Tab)}, F: {Input.GetKey(KeyCode.F)}");
+            // Debug.Log($"Input Status - anyKey: {Input.anyKey}, Tab: {Input.GetKey(KeyCode.Tab)}, F: {Input.GetKey(KeyCode.F)}");
         }
         
         // Toggle mouse look
         if (Input.GetKeyDown(toggleModeKey))
         {
-            Debug.Log("Tab key pressed - toggling mouse look");
+            // Debug.Log("Tab key pressed - toggling mouse look");
             mouseLookEnabled = !mouseLookEnabled;
         }
         
@@ -117,18 +120,27 @@ public class DeskGameController : MonoBehaviour
                 isGameLoaded = true;
             }
         }
-        
+
         // Exit game
         if (Input.GetKeyDown(exitGameKey) && isGameLoaded)
         {
-            UnloadGame();
+            ZoomCameraOut();
+            isEscaped = true;
         }
-        
+
+        if (Input.GetKeyDown(zoomInKey) && isGameLoaded)
+        {
+            if (!isZoomedIn)
+            {
+                ZoomCameraToLaptop();
+            }
+        }
+
         // Camera zoom when game is loaded
-        if (isGameLoaded)
+        if (isGameLoaded && !isEscaped)
         {
             ZoomCameraToLaptop();
-            
+
             // Game zoom controls
             if (gameCamera != null)
             {
@@ -137,7 +149,7 @@ public class DeskGameController : MonoBehaviour
                     currentGameZoom = Mathf.Clamp(currentGameZoom + gameZoomSpeed * Time.deltaTime, minGameZoom, maxGameZoom);
                     gameCamera.orthographicSize = 5f / currentGameZoom;
                 }
-                
+
                 if (Input.GetKey(KeyCode.Minus))
                 {
                     currentGameZoom = Mathf.Clamp(currentGameZoom - gameZoomSpeed * Time.deltaTime, minGameZoom, maxGameZoom);
@@ -149,7 +161,8 @@ public class DeskGameController : MonoBehaviour
     
     void HandleMouseLook()
     {
-        if (mouseLookEnabled && !isGameLoaded)
+        // if (mouseLookEnabled && !isGameLoaded)
+        if (mouseLookEnabled)
         {
             // Mouse look when not playing game
             Cursor.lockState = CursorLockMode.Locked;
@@ -184,7 +197,7 @@ public class DeskGameController : MonoBehaviour
         else
         {
             // string zoomInstruction = isZoomedIn ? $"Press [{zoomOutKey}] to zoom out" : $"Press [{zoomInKey}] to zoom in";
-            instructionText.text = $"Game loaded! Press [{exitGameKey}] to exit";
+            instructionText.text = $"Game loaded! Press [{exitGameKey}] to zoom out\nPress [{zoomInKey}] to zoom in\nPress [{toggleModeKey}] to toggle mouse look";
         }
     }
     
@@ -222,7 +235,7 @@ public class DeskGameController : MonoBehaviour
     
     void LoadGame()
     {
-        Debug.Log("LoadGame called - about to load Mario scene");
+        // Debug.Log("LoadGame called - about to load Mario scene");
         try
         {
             SceneManager.LoadScene(gameSceneName, LoadSceneMode.Additive);

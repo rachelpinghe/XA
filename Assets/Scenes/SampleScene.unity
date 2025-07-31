@@ -1587,7 +1587,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00a4b6b7712904dbea7865e549063fc8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1577988842}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00a4b6b7712904dbea7865e549063fc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1394871797}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00a4b6b7712904dbea7865e549063fc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1394871798}
   m_SourcePrefab: {fileID: 100100000, guid: 00a4b6b7712904dbea7865e549063fc8, type: 3}
 --- !u!1 &1320136041
 GameObject:
@@ -1649,6 +1655,7 @@ MonoBehaviour:
   playGameKey: 102
   exitGameKey: 27
   toggleModeKey: 9
+  zoomInKey: 101
   gameZoomSpeed: 2
   minGameZoom: 0.5
   maxGameZoom: 3
@@ -1679,6 +1686,50 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1394871796 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00a4b6b7712904dbea7865e549063fc8, type: 3}
+  m_PrefabInstance: {fileID: 1179674650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1394871797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394871796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c2c6b591db54484a5fa382ce14926a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lampLightObjectName: LampLight
+  startActive: 0
+  clickSound: {fileID: 0}
+  lampLight: {fileID: 1577988841}
+  highlightMaterial: {fileID: 2100000, guid: 3d694585536934ac1a8abe639d1106f9, type: 2}
+  highlightIntensity: 1.2
+--- !u!65 &1394871798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394871796}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: -0.21, y: 0.36, z: 0.2}
+  m_Center: {x: 0.06, y: 0.15, z: 0.07}
 --- !u!1 &1458317537
 GameObject:
   m_ObjectHideFlags: 0
