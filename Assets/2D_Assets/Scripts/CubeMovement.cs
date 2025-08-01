@@ -39,8 +39,8 @@ public class CubeMovement : MonoBehaviour
         // Check if grounded
         CheckGrounded();
         
-        // Jump input (only when grounded)
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Jump input (only when grounded) - works independently of horizontal movement
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
         {
             Jump();
         }

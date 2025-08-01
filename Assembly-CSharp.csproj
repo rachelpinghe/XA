@@ -64,42 +64,24 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/2022.3.62f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Mario_Assets/Scripts/PlayerSpriteRenderer.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/SaveRevive.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/DoorAppear - Copy.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/DoorAppear.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/DeathBarrier.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/BlockItem.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/SideScrollingCamera.cs" />
     <Compile Include="Assets/3D_Assets/Scripts/EatChoco.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/LifeNumber.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/BlockHit.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/PlayerMovement.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/Koopa.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/Goomba.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/GameManager.cs" />
-    <Compile Include="Assets/SaveRevive.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/ConstantMovement.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/SunControl.cs" />
+    <Compile Include="Assets/PassDoor.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/PlayerController.cs" />
     <Compile Include="Assets/3D_Assets/Scripts/DeskGameController.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/FlagPole.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/CubeMovement.cs" />
-    <Compile Include="Assets/SunControl.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/SideScrollingCamera.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/CollectStar.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/EntityMovement.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/BlockCoin.cs" />
-    <Compile Include="Assets/DoorAppear.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/LightControl.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/AnimatedSprite.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/Extensions.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/DeathAnimation.cs" />
     <Compile Include="Assets/3D_Assets/Scripts/LampInteraction.cs" />
-    <Compile Include="Assets/Scripts/DeskGameController.cs" />
-    <Compile Include="Assets/LampInteraction.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/Player.cs" />
     <Compile Include="Assets/Assets/Scripts/GameManager.cs" />
     <Compile Include="Assets/Assets/Scripts/PlayerMovement.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/PowerUp.cs" />
     <Compile Include="Assets/Scripts/SpriteSheetPlacer.cs" />
-    <Compile Include="Assets/Mario_Assets/Scripts/Pipe.cs" />
-    <Compile Include="Assets/LightControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMPro.cginc" />
@@ -108,6 +90,7 @@
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets/Materials/LaptopScreen.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
@@ -116,14 +99,13 @@
     <None Include="Assets/3D_Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
-    <None Include="Assets/Mario_Assets/ProjectSettings/ProjectVersion.txt" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
     <None Include="Assets/3D_Assets/Materials/LaptopScreen.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
-    <None Include="Assets/Materials/LaptopScreen.shader" />
+    <None Include="Assets/3D_Assets/Materials/LaptopScreen - Copy.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" />
     <None Include="Assets/3D_Assets/TextMesh Pro/Shaders/TMP_Sprite.shader" />
   </ItemGroup>

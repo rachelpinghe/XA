@@ -7,6 +7,9 @@ TagManager:
   - Door
   - ground
   - LampLight
+  - Star
+  - Spike
+  - Enemy
   layers:
   - Default
   - TransparentFX
