@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - ground
+  - LampLight
   layers:
   - Default
   - TransparentFX

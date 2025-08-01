@@ -65,24 +65,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Mario_Assets/Scripts/PlayerSpriteRenderer.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/DoorAppear.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/DeathBarrier.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/BlockItem.cs" />
-    <Compile Include="Assets/PlayerController.cs" />
+    <Compile Include="Assets/3D_Assets/Scripts/EatChoco.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/LifeNumber.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/BlockHit.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/PlayerMovement.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Koopa.cs" />
-    <Compile Include="Assets/LifeNumber.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Goomba.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/GameManager.cs" />
+    <Compile Include="Assets/SaveRevive.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/PlayerController.cs" />
     <Compile Include="Assets/3D_Assets/Scripts/DeskGameController.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/FlagPole.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/CubeMovement.cs" />
+    <Compile Include="Assets/SunControl.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/SideScrollingCamera.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/CollectStar.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/EntityMovement.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/BlockCoin.cs" />
+    <Compile Include="Assets/DoorAppear.cs" />
+    <Compile Include="Assets/2D_Assets/Scripts/LightControl.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/AnimatedSprite.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Extensions.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/DeathAnimation.cs" />
+    <Compile Include="Assets/3D_Assets/Scripts/LampInteraction.cs" />
+    <Compile Include="Assets/Scripts/DeskGameController.cs" />
     <Compile Include="Assets/LampInteraction.cs" />
     <Compile Include="Assets/Mario_Assets/Scripts/Player.cs" />
     <Compile Include="Assets/Assets/Scripts/GameManager.cs" />
