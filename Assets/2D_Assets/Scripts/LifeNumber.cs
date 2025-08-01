@@ -26,6 +26,13 @@ public class LifeNumber : MonoBehaviour
         }
     }
 
+    public void IncreaseLife(float amount = 1f)
+    {
+        life += amount;
+        UpdateLifeDisplay();
+        Debug.Log("Life increased! Current life: " + life);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -95,6 +102,12 @@ public class LifeNumber : MonoBehaviour
         {
             life = life - 2; // Decrease life count when hitting an enemy
             UpdateLifeDisplay();
+        }
+        if (collision.gameObject.CompareTag("Water"))
+        {
+            life = 0; // Instant death in water
+            UpdateLifeDisplay();
+            PlayerDied();
         }
     }
 }

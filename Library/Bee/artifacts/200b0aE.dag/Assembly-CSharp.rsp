@@ -328,6 +328,7 @@
 -r:"Library/PackageCache/com.unity.testtools.codecoverage@1.2.6/lib/ReportGenerator/ReportGeneratorMerged.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.4/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.2D.Sprite.Editor.ref.dll"
+-r:"Library/Bee/artifacts/200b0aE.dag/Unity.2D.Tilemap.Editor.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.PlasticSCM.Editor.ref.dll"
@@ -376,6 +377,7 @@
 "Assets/3D_Assets/Scripts/LampInteraction.cs"
 "Assets/Assets/Scripts/GameManager.cs"
 "Assets/Assets/Scripts/PlayerMovement.cs"
+"Assets/DrinkWater.cs"
 "Assets/PassDoor.cs"
 "Assets/Scripts/SpriteSheetPlacer.cs"
 -langversion:9.0

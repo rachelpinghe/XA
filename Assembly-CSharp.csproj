@@ -67,6 +67,7 @@
     <Compile Include="Assets/2D_Assets/Scripts/SaveRevive.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/DoorAppear - Copy.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/DoorAppear.cs" />
+    <Compile Include="Assets/DrinkWater.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/SideScrollingCamera.cs" />
     <Compile Include="Assets/3D_Assets/Scripts/EatChoco.cs" />
     <Compile Include="Assets/2D_Assets/Scripts/LifeNumber.cs" />
@@ -1068,6 +1069,10 @@
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
