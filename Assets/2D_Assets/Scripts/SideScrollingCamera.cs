@@ -4,9 +4,13 @@ using UnityEngine;
 public class SideScrollingCamera : MonoBehaviour
 {
     public Transform trackedObject;
-    public float height = 6.5f;
+    public float height = 1f;
     public float undergroundHeight = -9.5f;
     public float undergroundThreshold = 0f;
+    
+    [Header("Hole Following Settings")]
+    public bool followPlayerInHole = false; // Whether camera should follow player vertically
+    public float verticalFollowSpeed = 3f; // Speed of vertical following when in hole
     
     [Header("Camera Relocation Settings")]
     public float slideSpeed = 5f; // Speed of camera sliding back to player
@@ -31,9 +35,20 @@ public class SideScrollingCamera : MonoBehaviour
         }
         else
         {
-            // Normal side-scrolling behavior (only move forward, never back)
+            // Normal side-scrolling behavior
             Vector3 cameraPosition = transform.position;
+            
+            // Always follow horizontally (only move forward, never back)
             cameraPosition.x = Mathf.Max(cameraPosition.x, trackedObject.position.x);
+            
+            // Follow vertically only when in hole
+            if (followPlayerInHole)
+            {
+                // Smoothly follow player's Y position when in hole
+                float targetY = trackedObject.position.y;
+                cameraPosition.y = Mathf.Lerp(cameraPosition.y, targetY, verticalFollowSpeed * Time.deltaTime);
+            }
+            
             transform.position = cameraPosition;
         }
     }
@@ -74,6 +89,30 @@ public class SideScrollingCamera : MonoBehaviour
             
             Debug.Log($"Camera snapped to player at position: {cameraPosition}");
         }
+    }
+    
+    // Method to enable/disable hole following
+    public void SetHoleFollowing(bool enabled)
+    {
+        followPlayerInHole = enabled;
+        Debug.Log($"Camera hole following: {(enabled ? "ENABLED" : "DISABLED")}");
+    }
+    
+    // Method to enter hole (enable vertical following)
+    public void EnterHole()
+    {
+        SetHoleFollowing(true);
+    }
+    
+    // Method to exit hole (disable vertical following, return to fixed height)
+    public void ExitHole()
+    {
+        SetHoleFollowing(false);
+        
+        // Optionally return to normal height
+        Vector3 cameraPosition = transform.position;
+        cameraPosition.y = height;
+        transform.position = cameraPosition;
     }
     
     // Public method to check if camera is currently relocating

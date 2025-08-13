@@ -19,7 +19,7 @@ public class DeskGameController : MonoBehaviour
     public string materialTextureProperty = "_MainTex";
     
     [Header("2D Game Settings")]
-    public string gameSceneName = "1-1";
+    public string gameSceneName = "Level1";
     private Camera gameCamera;
     
     [Header("UI")]
@@ -28,7 +28,7 @@ public class DeskGameController : MonoBehaviour
     public KeyCode playGameKey = KeyCode.F;
     public KeyCode exitGameKey = KeyCode.Escape;
     public KeyCode toggleModeKey = KeyCode.Tab;
-    public KeyCode zoomInKey = KeyCode.E;
+    public KeyCode toggleZoomKey = KeyCode.E; // Single key for both zoom in and zoom out
     
     [Header("Game Controls")]
     // public KeyCode zoomInKey = KeyCode.E;
@@ -44,7 +44,7 @@ public class DeskGameController : MonoBehaviour
     private bool isGameLoaded = false;
     private bool isZoomedIn = false;
     private float currentGameZoom = 1f;
-    private string defaultInstructionText = "Press [F] to play game\nPress [Tab] to toggle mouse look";
+    private string defaultInstructionText = "Press [F] to play game";
 
     private bool isEscaped = false;
     
@@ -53,8 +53,20 @@ public class DeskGameController : MonoBehaviour
     private float yRotation = 0f;
     private bool mouseLookEnabled = false;
     
+    // Camera starting position
+    private Vector3 startingPosition;
+    private Quaternion startingRotation;
+    private bool isResetting = false;
+    
     void Start()
     {
+        // Store the starting camera position and rotation
+        if (deskCamera != null)
+        {
+            startingPosition = deskCamera.transform.position;
+            startingRotation = deskCamera.transform.rotation;
+        }
+        
         SetupRenderTexture();
         SetupUI();
     }
@@ -128,19 +140,30 @@ public class DeskGameController : MonoBehaviour
             isEscaped = true;
         }
 
-        if (Input.GetKeyDown(zoomInKey) && isGameLoaded)
+        // Toggle zoom with single key
+        if (Input.GetKeyDown(toggleZoomKey) && isGameLoaded)
         {
-            if (!isZoomedIn)
+            if (isZoomedIn)
             {
+                // Currently zoomed in, so zoom out
+                ZoomCameraOut();
+            }
+            else
+            {
+                // Currently zoomed out, so zoom in
                 ZoomCameraToLaptop();
+            }
+            
+            // Reset camera position smoothly to starting position when zooming in
+            if (!isZoomedIn && !isResetting) // Will be true after ZoomCameraToLaptop()
+            {
+                StartCoroutine(SmoothResetCamera());
             }
         }
 
         // Camera zoom when game is loaded
         if (isGameLoaded && !isEscaped)
         {
-            ZoomCameraToLaptop();
-
             // Game zoom controls
             if (gameCamera != null)
             {
@@ -189,15 +212,22 @@ public class DeskGameController : MonoBehaviour
     {
         if (instructionText == null) return;
         
+        // Check if ending has beesn triggered from FakeDoor
+        if (FakeDoor.Ending)
+        {
+            instructionText.text = "Press Tab to toggle free view";
+            return;
+        }
+        
         if (!isGameLoaded)
         {
             string mouseLookStatus = mouseLookEnabled ? "ON" : "OFF";
-            instructionText.text = $"{defaultInstructionText}\nMouse Look: {mouseLookStatus}";
+            // instructionText.text = $"{defaultInstructionText}\nMouse Look: {mouseLookStatus}";
         }
         else
         {
-            // string zoomInstruction = isZoomedIn ? $"Press [{zoomOutKey}] to zoom out" : $"Press [{zoomInKey}] to zoom in";
-            instructionText.text = $"Game loaded! Press [{exitGameKey}] to zoom out\nPress [{zoomInKey}] to zoom in\nPress [{toggleModeKey}] to toggle mouse look";
+            string zoomInstruction = isZoomedIn ? $"Press [{toggleZoomKey}] to zoom out" : $"Press [{toggleZoomKey}] to zoom in";
+            instructionText.text = $"{zoomInstruction}";
         }
     }
     
@@ -215,6 +245,80 @@ public class DeskGameController : MonoBehaviour
         
         StartCoroutine(SmoothZoom(zoomedFOV, normalFOV));
         isZoomedIn = false;
+    }
+    
+    void ResetCameraPosition()
+    {
+        if (deskCamera != null)
+        {
+            deskCamera.transform.position = startingPosition;
+            deskCamera.transform.rotation = startingRotation;
+            
+            // Reset mouse look rotations
+            xRotation = 0f;
+            yRotation = 0f;
+            
+            Debug.Log("Camera position and rotation reset to starting values");
+        }
+    }
+    
+    System.Collections.IEnumerator SmoothResetCamera()
+    {
+        if (deskCamera == null || isResetting) yield break;
+        
+        isResetting = true;
+        
+        Vector3 initialPosition = deskCamera.transform.position;
+        Quaternion initialRotation = deskCamera.transform.rotation;
+        
+        float elapsed = 0f;
+        float duration = 1f / zoomSpeed; // Use same speed as zoom
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            
+            // Smooth position interpolation
+            deskCamera.transform.position = Vector3.Lerp(initialPosition, startingPosition, t);
+            
+            // Smooth rotation interpolation
+            deskCamera.transform.rotation = Quaternion.Slerp(initialRotation, startingRotation, t);
+            
+            yield return null;
+        }
+        
+        // Ensure exact final values
+        deskCamera.transform.position = startingPosition;
+        deskCamera.transform.rotation = startingRotation;
+        
+        // Reset mouse look rotations
+        xRotation = 0f;
+        yRotation = 0f;
+        
+        isResetting = false;
+        
+        Debug.Log("Camera smoothly reset to starting position and rotation");
+    }
+    
+    // Public method to control mouse look from other scripts
+    public void SetMouseLookEnabled(bool enabled)
+    {
+        mouseLookEnabled = enabled;
+        Debug.Log($"DeskGameController: Mouse look set to {enabled}");
+        
+        // If disabling mouse look, unlock cursor immediately
+        if (!enabled)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+    
+    // Public method to get current mouse look state
+    public bool IsMouseLookEnabled()
+    {
+        return mouseLookEnabled;
     }
     
     System.Collections.IEnumerator SmoothZoom(float fromFOV, float toFOV)
@@ -235,12 +339,23 @@ public class DeskGameController : MonoBehaviour
     
     void LoadGame()
     {
-        // Debug.Log("LoadGame called - about to load Mario scene");
+        Debug.Log($"LoadGame called - about to load scene: {gameSceneName}");
+        
+        // Check if scene already exists
+        Scene existingScene = SceneManager.GetSceneByName(gameSceneName);
+        if (existingScene.isLoaded)
+        {
+            Debug.Log($"Scene {gameSceneName} is already loaded!");
+            isGameLoaded = true;
+            StartCoroutine(SetupGameCamera());
+            return;
+        }
+        
         try
         {
             SceneManager.LoadScene(gameSceneName, LoadSceneMode.Additive);
             isGameLoaded = true;
-            Debug.Log("Mario scene loaded successfully, starting camera setup");
+            Debug.Log($"Scene {gameSceneName} loaded successfully, starting camera setup");
             StartCoroutine(SetupGameCamera());
         }
         catch (System.Exception e)
@@ -275,10 +390,19 @@ public class DeskGameController : MonoBehaviour
     System.Collections.IEnumerator SetupGameCamera()
     {
         Debug.Log("SetupGameCamera started");
+        
+        // List all currently loaded scenes
+        Debug.Log($"Currently loaded scenes ({SceneManager.sceneCount}):");
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            Debug.Log($"  - {scene.name} (loaded: {scene.isLoaded})");
+        }
+        
         yield return new WaitForEndOfFrame();
         
         Scene gameScene = SceneManager.GetSceneByName(gameSceneName);
-        Debug.Log($"Game scene loaded status: {gameScene.isLoaded}");
+        Debug.Log($"Target scene '{gameSceneName}' loaded status: {gameScene.isLoaded}");
         
         if (gameScene.isLoaded)
         {
@@ -395,7 +519,7 @@ public class DeskGameController : MonoBehaviour
             
             if (gameCamera == null)
             {
-                Debug.LogWarning("No camera found in the loaded game scene!");
+                Debug.Log("No camera found in the loaded game scene!");
             }
             
             // Test input immediately after setup

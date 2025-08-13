@@ -12,6 +12,11 @@ TagManager:
   - Enemy
   - Choco
   - Water
+  - AppearAfterTriggered
+  - SpikeFaller
+  - Spike2
+  - Chair
+  - Invisible
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,6 @@ public class LightControl : MonoBehaviour
         cam = GetComponent<Camera>();
         if (cam == null)
         {
-            Debug.LogError("LightControl: No Camera component found on this GameObject!");
             return;
         }
         
@@ -35,7 +34,6 @@ public class LightControl : MonoBehaviour
         // Start with black background (dimmed view)
         currentColor = dimmedColor;
         targetColor = dimmedColor;
-        Debug.Log($"LightControl: Initializing with dimmed color {currentColor}");
         UpdateCameraBrightness();
     }
 
@@ -45,7 +43,6 @@ public class LightControl : MonoBehaviour
         if (lampLight == null)
         {
             FindLampLight();
-            Debug.Log("LampLight is null, trying to find it...");
         }
 
         // Check lamp status and update target color
@@ -71,30 +68,7 @@ public class LightControl : MonoBehaviour
     void FindLampLight()
     {
         // Try to find the lamp light object by tag
-        Debug.Log($"LightControl: Looking for GameObject with tag '{lampLightTag}'");
         lampLight = GameObject.FindWithTag(lampLightTag);
-        
-        if (lampLight == null)
-        {
-            Debug.LogWarning($"LightControl: Could not find GameObject with tag '{lampLightTag}' in currently loaded scenes.");
-            Debug.LogWarning("LightControl: Make sure you've created and assigned the 'LampLight' tag to your lamp object!");
-            
-            // Debug: List all GameObjects with "lamp" or "light" in their name
-            GameObject[] allObjects = FindObjectsOfType<GameObject>();
-            Debug.Log($"LightControl: Searching through {allObjects.Length} GameObjects for lamp/light objects...");
-            
-            foreach (GameObject obj in allObjects)
-            {
-                if (obj.name.ToLower().Contains("lamp") || obj.name.ToLower().Contains("light"))
-                {
-                    Debug.Log($"LightControl: Found object with 'lamp' or 'light' in name: '{obj.name}' (tag: '{obj.tag}') in scene '{obj.scene.name}'");
-                }
-            }
-        }
-        else
-        {
-            Debug.Log($"LightControl: Successfully found lamp light object '{lampLight.name}' with tag '{lampLightTag}' in scene '{lampLight.scene.name}', current state: {lampLight.activeInHierarchy}");
-        }
     }
     
     void UpdateCameraBrightness()
@@ -103,7 +77,6 @@ public class LightControl : MonoBehaviour
         {
             // Set camera background color directly
             cam.backgroundColor = currentColor;
-            Debug.Log($"LightControl: Camera background color set to {currentColor}");
         }
     }
     

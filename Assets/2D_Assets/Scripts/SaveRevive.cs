@@ -62,6 +62,7 @@ public class SaveRevive : MonoBehaviour
         if (activatedChild != null)
         {
             activatedChild.gameObject.SetActive(true);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             Debug.Log($"Checkpoint '{checkpointID}': Activated child object 'Activated'");
         }
         else
@@ -132,6 +133,9 @@ public class SaveRevive : MonoBehaviour
         {
             Debug.LogWarning("SaveRevive: No SideScrollingCamera found in scene!");
         }
+        
+        // Reset all falling blocks to their original positions
+        // Fall.ResetAllFallingBlocks();
     }
     
     // Static method to load checkpoint from PlayerPrefs

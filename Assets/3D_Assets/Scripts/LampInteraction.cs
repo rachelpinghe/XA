@@ -32,12 +32,26 @@ public class LampInteraction : MonoBehaviour
         
         // Get components for this table object
         audioSource = GetComponent<AudioSource>();
-        tableRenderer = GetComponent<Renderer>();
         
+        // Find the renderer on the child object "lampRoundTable"
+        Transform childTable = transform.Find("lampRoundTable");
+        if (childTable != null)
+        {
+            tableRenderer = childTable.GetComponent<Renderer>();
+            Debug.Log("LampInteraction: Found lampRoundTable child with renderer");
+        }
+        else
+        {
+            // Fallback to this object if child not found
+            tableRenderer = GetComponent<Renderer>();
+            Debug.LogWarning("LampInteraction: lampRoundTable child not found, using parent renderer");
+        }
+
         // Store original material of the table
         if (tableRenderer != null)
         {
             originalMaterial = tableRenderer.material;
+            Debug.Log("LampInteraction: Original material stored");
         }
         
         // Ensure the table has a collider for mouse detection
@@ -63,6 +77,7 @@ public class LampInteraction : MonoBehaviour
         if (!isHighlighted)
         {
             HighlightTable(true);
+            // Debug.Log("Highlighted");
         }
     }
     
@@ -126,6 +141,7 @@ public class LampInteraction : MonoBehaviour
             if (highlightMaterial != null)
             {
                 tableRenderer.material = highlightMaterial;
+                Debug.Log("LampInteraction: Applied highlight material to table");
             }
             else
             {

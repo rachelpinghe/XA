@@ -28,12 +28,35 @@ public class EatChoco : MonoBehaviour
                 lifeScript.IncreaseLife(1f); // Increase life by 1
                 Debug.Log("Choco eaten! Life increased!");
                 
+                // Deactivate Spike objects in Level2 scene
+                DeactivateSpikes();
+                
                 // Optionally destroy the chocolate after eating
                 Destroy(gameObject);
             }
             else
             {
                 Debug.LogWarning("EatChoco: No LifeNumber script found in scene!");
+            }
+        }
+    }
+    
+    void DeactivateSpikes()
+    {
+        // Find and deactivate Spike (1), Spike (2), and Spike (3) in Level2 scene
+        string[] spikeNames = {"Spike (1)", "Spike (2)", "Spike (3)"};
+        
+        foreach (string spikeName in spikeNames)
+        {
+            GameObject spike = GameObject.Find(spikeName);
+            if (spike != null)
+            {
+                spike.SetActive(false);
+                Debug.Log($"EatChoco: Deactivated {spikeName}");
+            }
+            else
+            {
+                Debug.LogWarning($"EatChoco: Could not find {spikeName} in scene");
             }
         }
     }

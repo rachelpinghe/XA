@@ -6,7 +6,7 @@ using UnityEngine;
 public class LifeNumber : MonoBehaviour
 {
     public float deathFall = -10f;
-    public float life = 3f;
+    public float life = 5f;
     public TextMeshPro lifeText; // Reference to the UI text for displaying life count
 
     // Start is called before the first frame update
@@ -14,15 +14,11 @@ public class LifeNumber : MonoBehaviour
     {
         UpdateLifeDisplay();
     }
-    void UpdateLifeDisplay()
+    public void UpdateLifeDisplay()
     {
         if (lifeText != null)
         {
             lifeText.text = life.ToString();
-        }
-        else
-        {
-            Debug.LogWarning("LifeNumber: Life Text is not assigned!");
         }
     }
 
@@ -30,18 +26,20 @@ public class LifeNumber : MonoBehaviour
     {
         life += amount;
         UpdateLifeDisplay();
-        Debug.Log("Life increased! Current life: " + life);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y <= deathFall)
+        if (transform.position.y <= deathFall && life > 0)
         {
-            PlayerDied();
-            Debug.Log("Player fell");
             life--;
             UpdateLifeDisplay();
+            
+            if (life > 0)
+            {
+                PlayerDied(); // Only revive if player still has lives
+            }
         }
         if (life <= 0)
         {
@@ -49,65 +47,81 @@ public class LifeNumber : MonoBehaviour
         }
     }
 
-    void PlayerDied()
+    public void PlayerDied()
     {
         SaveRevive.RevivePlayer(gameObject);
     }
 
     void StartNewGame()
     {
-        life = 3f; // Reset life count
-        transform.position = SaveRevive.defaultStartingPosition; // Reset player position
+        life = 5f; // Reset life count
+        transform.position = SaveRevive.defaultStartingPosition; // Use default starting position instead
         SideScrollingCamera camera = FindObjectOfType<SideScrollingCamera>();
         if (camera != null)
         {
             camera.RelocateToPlayer();
         }
-        else
-        {
-            Debug.LogWarning("SaveRevive: No SideScrollingCamera found in scene!");
-        }
-        
+
         // Reset PassDoor script's setActive boolean
         PassDoor passDoor = FindObjectOfType<PassDoor>();
         if (passDoor != null)
         {
             passDoor.setActive = false;
-            Debug.Log("StartNewGame: PassDoor setActive reset to false");
         }
-        else
-        {
-            Debug.LogWarning("StartNewGame: No PassDoor script found in scene!");
-        }
-        
+
         // Reset all checkpoint states
         SaveRevive[] allCheckpoints = FindObjectsOfType<SaveRevive>();
         foreach (SaveRevive checkpoint in allCheckpoints)
         {
             checkpoint.ResetCheckpointState();
         }
-        
+
         UpdateLifeDisplay();
         SaveRevive.ResetCheckpoints();
+        
+        // Reset falling blocks when starting new game
+        // Fall.ResetAllFallingBlocks();
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
+            // Check if it's a falling block with disabled Fall script
+            Fall fallScript = collision.gameObject.GetComponent<Fall>();
+            if (fallScript != null && !fallScript.enabled)
+            {
+                return; // Don't take damage if Fall script is disabled
+            }
+
             life--; // Decrease life count when hitting a spike
             UpdateLifeDisplay();
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            life = life - 2; // Decrease life count when hitting an enemy
+            life--; // Decrease life count when hitting an enemy
             UpdateLifeDisplay();
         }
-        if (collision.gameObject.CompareTag("Water"))
+        if (collision.gameObject.CompareTag("Spike2"))
         {
-            life = 0; // Instant death in water
+            // Check if it's a falling block with disabled Fall script
+            Fall fallScript = collision.gameObject.GetComponent<Fall>();
+            if (fallScript != null && !fallScript.enabled)
+            {
+                return; // Don't take damage if Fall script is disabled
+            }
+
+            life = 1; // Decrease life count when hitting an enemy
             UpdateLifeDisplay();
-            PlayerDied();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            life = 0;
+            UpdateLifeDisplay();
         }
     }
 }
